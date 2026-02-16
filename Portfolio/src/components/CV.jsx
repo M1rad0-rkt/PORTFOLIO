@@ -33,11 +33,10 @@ export default function CV({ darkMode }) {
       degree: 'Licence en Informatique',
       school: 'University FJKM Ravelojaona Ampandrana',
       period: '2022-2025',
-      description: '1ère année (2022-2023), 2ème année (2023-2024), 3ème année (2024-2025).',
+      description: '1ère année (2022-2023), 2ème année (2023-2024), 3ème année (2024-2025). Obtention du licence en Informatique en 2025 et Master en cours.',
     },
   ];
 
-  const certifications = [];
 
   return (
     <section
@@ -160,39 +159,6 @@ export default function CV({ darkMode }) {
                   </p>
                 </div>
               ))}
-            </div>
-
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 bg-blue-600 rounded-lg">
-                <Award className="text-white" size={24} />
-              </div>
-              <h3
-                className={`text-2xl font-bold ${
-                  darkMode ? 'text-white' : 'text-gray-900'
-                }`}
-              >
-                Certifications
-              </h3>
-            </div>
-
-            <div
-              className={`p-6 rounded-xl shadow-md ${
-                darkMode ? 'bg-gray-800/80' : 'bg-white/80'
-              } backdrop-blur-sm`}
-            >
-              <ul className="space-y-3">
-                {certifications.map((cert, index) => (
-                  <li
-                    key={index}
-                    className={`flex items-center gap-3 ${
-                      darkMode ? 'text-gray-300' : 'text-gray-700'
-                    }`}
-                  >
-                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    {cert}
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         </div>

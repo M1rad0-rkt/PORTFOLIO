@@ -6,6 +6,7 @@ import Projects from './components/Projects';
 import CV from './components/CV';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Skills from './components/meskills';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -29,6 +30,7 @@ function App() {
         <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <Hero darkMode={darkMode} />
         <About darkMode={darkMode} />
+        <Skills darkMode={darkMode} />
         <Projects darkMode={darkMode} />
         <CV darkMode={darkMode} />
         <Contact darkMode={darkMode} />

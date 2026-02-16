@@ -1,29 +1,6 @@
 
-import { Code, Database, Smartphone, Globe } from 'lucide-react';
 
 export default function About({ darkMode }) {
-  const skills = [
-    {
-      icon: <Code size={32} />,
-      title: 'Frontend',
-      description: 'React, Vue.js, HTML, CSS, JavaScript, TypeScript',
-    },
-    {
-      icon: <Database size={32} />,
-      title: 'Backend',
-      description: 'Node.js, Python, PHP, SQL, MongoDB',
-    },
-    {
-      icon: <Smartphone size={32} />,
-      title: 'Mobile',
-      description: 'React Native, Flutter',
-    },
-    {
-      icon: <Globe size={32} />,
-      title: 'Autres',
-      description: 'Git, Docker, AWS, CI/CD',
-    },
-  ];
 
   return (
     <section
@@ -62,6 +39,7 @@ export default function About({ darkMode }) {
                 darkMode ? 'text-gray-300' : 'text-gray-700'
               }`}
             >
+              <h3 className="text-xl font-bold mb-2">Brève description  </h3>
               Passionné par le développement web et mobile, je crée des applications
               modernes et performantes. Avec plusieurs années d'expérience, je maîtrise
               un large éventail de technologies pour transformer vos idées en réalité.
@@ -75,44 +53,29 @@ export default function About({ darkMode }) {
               pour livrer des solutions élégantes et efficaces qui dépassent les
               attentes.
             </p>
+              <p
+                className={`text-lg mb-6 leading-relaxed ${
+                  darkMode ? 'text-gray-300' : 'text-gray-700'
+                }`}
+              >
+                <h2 className="text-xl font-bold mb-2"> Mes passions</h2>
+              </p>
+
             <div className="flex flex-wrap gap-3">
               <span className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">
-                React
+                Guitare
               </span>
               <span className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">
-                Node.js
+                Basket-ball
               </span>
               <span className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">
-                TypeScript
+                Chant
               </span>
               <span className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">
-                Python
+                Coder
               </span>
             </div>
           </div>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {skills.map((skill, index) => (
-            <div
-              key={index}
-              className={`p-6 rounded-xl shadow-lg transition-transform hover:scale-105 ${
-                darkMode
-                  ? 'bg-gray-800 text-white'
-                  : 'bg-white text-gray-900'
-              }`}
-            >
-              <div className="text-blue-600 mb-4">{skill.icon}</div>
-              <h3 className="text-xl font-bold mb-2">{skill.title}</h3>
-              <p
-                className={`text-sm ${
-                  darkMode ? 'text-gray-400' : 'text-gray-600'
-                }`}
-              >
-                {skill.description}
-              </p>
-            </div>
-          ))}
         </div>
       </div>
     </section>

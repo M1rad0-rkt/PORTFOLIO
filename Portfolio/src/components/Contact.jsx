@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, Send} from 'lucide-react';
 
 export default function Contact({ darkMode }) {
   const [formData, setFormData] = useState({
@@ -34,8 +34,8 @@ export default function Contact({ darkMode }) {
     {
       icon: <Phone size={24} />,
       title: 'Téléphone',
-      value: '+261 33 90 821 68',
-      link: 'tel:+261339082168',
+      value: '+261 34 57 344 84',
+      link: 'tel:+261345734484',
     },
     {
       icon: <MapPin size={24} />,
