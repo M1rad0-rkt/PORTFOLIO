@@ -4,7 +4,7 @@ export default function Projects({ darkMode }) {
   const projects = [
     {
       title: 'Cientelia',
-      description: 'Une plateforme de gestion des demandes clients avec analyse de satisfaction intégrée',
+      description: 'Une plateforme de gestion des demandes clients avec analyse de satisfaction intégrée authentifié par JWT',
       image: '/Acceuil_visiteur.jpg',
       tags: ['React', 'django python', 'MySql', 'JWT', 'Vite.js'],
       github: 'https://github.com/M1rad0-rkt/CLIENTELIA.git',
@@ -31,7 +31,7 @@ export default function Projects({ darkMode }) {
       description: 'Un porftfolio personnalisé et dynamique permettant aux visiteurs de faire ma connaissance.',
       image: '/Portfolio.jpg',
       tags: ['react.js', 'Tailwind', 'Vite.js'],
-      github: '#',
+      github: 'https://github.com/M1rad0-rkt/PORTFOLIO.git',
       demo: '#',
     },
     {

@@ -35,6 +35,12 @@ export default function CV({ darkMode }) {
       period: '2022-2025',
       description: '1ère année (2022-2023), 2ème année (2023-2024), 3ème année (2024-2025). Obtention du licence en Informatique en 2025 et Master en cours.',
     },
+    {
+      degree: 'Master en Informatique (en-cours)',
+      school: 'EMIT Fianarantsoa Madagascar',
+      period: '2025...',
+      description: 'Master I (2025-2026) parcours SDIA (Science de Donnée et Intelligence Artificielle) ',
+    },
   ];
 
 

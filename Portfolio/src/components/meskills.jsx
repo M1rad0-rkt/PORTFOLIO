@@ -5,17 +5,17 @@ export default function About({ darkMode }) {
     {
       icon: <Code size={32} />,
       title: 'Frontend',
-      description: 'React, tailwind, HTML, CSS, JavaScript, TypeScript, Vite.js',
+      description: 'React JS, tailwind, HTML, CSS, JavaScript, TypeScript, Vite.js',
     },
     {
       icon: <Database size={32} />,
       title: 'Backend',
-      description: 'Django, Python, PHP, SQL, Javascript',
+      description: 'Django python,Laravel PHP, Python, PHP, SQL, Javascript',
     },
     {
       icon: <Smartphone size={32} />,
       title: 'Mobile',
-      description: 'Android, Blackberry, React Native',
+      description: 'Blackberry, React Native',
     },
     {
       icon: <Globe size={32} />,

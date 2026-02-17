@@ -69,10 +69,13 @@ export default function About({ darkMode }) {
                 Basket-ball
               </span>
               <span className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">
-                Chant
+                Chanter
               </span>
               <span className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">
                 Coder
+              </span>
+              <span className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">
+                Musculation
               </span>
             </div>
           </div>
