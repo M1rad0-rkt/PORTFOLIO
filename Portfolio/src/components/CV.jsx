@@ -220,11 +220,10 @@ export default function CV({ darkMode }) {
         </div>
       </div>
 
-      {/* Bouton Téléchargement */}
       {/* Bouton Téléchargement CV */}
       <a
-        href="/Curriculum_Vitae_Mirado.pdf"
-        download="Curriculum_Vitae_Mirado.pdf"
+        href="/Curriculum_Vitae_Mirado.jpg"
+        download="Curriculum_Vitae_Mirado.jpg"
         className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-6 py-3.5 
                    bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 
                    hover:border-blue-500 text-gray-900 dark:text-white 
