@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ExternalLink, Github, ArrowUpRight, Circle } from 'lucide-react';
 
 const CATEGORIES = ['Tous', 'Web', 'Data & IA', 'Mobile & Jeux'];
@@ -86,6 +86,103 @@ function statusOf(project) {
   return { label: 'Terminé', dot: 'bg-green-500' };
 }
 
+function CategoryTabs({ active, setActive, darkMode }) {
+  const containerRef = useRef(null);
+  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const activeBtn = container.querySelector(`[data-cat="${active}"]`);
+    if (activeBtn) {
+      setIndicator({
+        left: activeBtn.offsetLeft,
+        width: activeBtn.offsetWidth,
+      });
+    }
+  }, [active, darkMode]);
+
+  return (
+    <div className="flex justify-center mb-12">
+      <div
+        ref={containerRef}
+        className={`relative inline-flex p-1 rounded-full border ${
+          darkMode ? 'bg-gray-900 border-gray-800' : 'bg-gray-100 border-gray-200'
+        }`}
+      >
+        <span
+          className={`absolute top-1 bottom-1 rounded-full transition-all duration-300 ease-out ${
+            darkMode ? 'bg-white' : 'bg-gray-900'
+          }`}
+          style={{ left: indicator.left, width: indicator.width }}
+        />
+
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            data-cat={cat}
+            onClick={() => setActive(cat)}
+            className={`relative z-10 px-5 py-2 text-sm font-medium rounded-full transition-colors duration-300 ${
+              active === cat
+                ? darkMode ? 'text-gray-900' : 'text-white'
+                : darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function GithubLink({ href, darkMode, full = false }) {
+  const hasLink = href && href !== '#';
+  return (
+      <a
+      href={hasLink ? href : undefined}
+      target={hasLink ? '_blank' : undefined}
+      rel={hasLink ? 'noopener noreferrer' : undefined}
+      onClick={(e) => !hasLink && e.preventDefault()}
+      className={`flex items-center justify-center gap-2 font-medium rounded-xl transition-colors ${
+        full ? 'flex-1 py-2.5 text-sm' : 'px-4 py-2 text-sm'
+      } ${
+        hasLink
+          ? darkMode
+            ? 'bg-white text-gray-900 hover:bg-gray-200'
+            : 'bg-gray-900 text-white hover:bg-gray-800'
+          : darkMode
+          ? 'bg-gray-800 text-gray-500 cursor-not-allowed'
+          : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+      }`}
+      >
+      <Github size={16} />
+      {hasLink ? 'Voir le code' : 'Code privé'}
+    </a>
+  );
+}
+
+// Bouton Demo — masqué si absent, sinon lien discret
+function DemoLink({ href, darkMode, full = false }) {
+  if (!href || href === '#') return null;
+  return (
+      <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`flex items-center justify-center gap-2 text-sm font-medium rounded-xl border transition-colors ${
+        full ? 'flex-1 py-2.5' : 'px-4 py-2'
+      } ${
+        darkMode
+          ? 'border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white'
+          : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-900'
+      }`}
+    >
+      <ArrowUpRight size={16} /> Demo
+    </a>
+  );
+}
+
 export default function Projects({ darkMode }) {
   const [active, setActive] = useState('Tous');
 
@@ -99,7 +196,6 @@ export default function Projects({ darkMode }) {
       id="projects"
       className={`relative overflow-hidden py-24 ${darkMode ? 'bg-gray-950' : 'bg-gray-50'}`}
     >
-      {/* Fond en grille comme les autres sections */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
         style={{
@@ -129,31 +225,13 @@ export default function Projects({ darkMode }) {
           </p>
         </div>
 
-        {/* Filtres */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActive(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
-                active === cat
-                  ? 'bg-blue-600 text-white'
-                  : darkMode
-                  ? 'bg-gray-900 text-gray-400 hover:bg-gray-800 hover:text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        <CategoryTabs active={active} setActive={setActive} darkMode={darkMode} />
 
         {/* Projet Phare */}
         {featured && active === 'Tous' && (
           <div className={`mb-12 rounded-3xl overflow-hidden border grid md:grid-cols-2 ${
             darkMode ? 'bg-gray-900/60 border-gray-800' : 'bg-white border-gray-100'
           }`}>
-            {/* ... (je garde le reste du projet phare tel quel) */}
             <div className="relative h-64 md:h-full">
               <img src={featured.image} alt={featured.title} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent md:bg-gradient-to-r"></div>
@@ -175,13 +253,9 @@ export default function Projects({ darkMode }) {
                   </span>
                 ))}
               </div>
-              <div className="flex gap-4">
-                <a href={featured.github} className="flex items-center gap-2 text-sm font-medium text-blue-600 hover:underline">
-                  <Github size={16} /> Code
-                </a>
-                <a href={featured.demo} className={`flex items-center gap-2 text-sm font-medium ${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}>
-                  <ExternalLink size={16} /> Demo
-                </a>
+              <div className="flex gap-3">
+                <GithubLink href={featured.github} darkMode={darkMode} />
+                <DemoLink href={featured.demo} darkMode={darkMode} />
               </div>
             </div>
           </div>
@@ -232,13 +306,9 @@ export default function Projects({ darkMode }) {
                     ))}
                   </div>
 
-                  <div className="flex gap-5 text-sm">
-                    <a href={project.github} className="flex items-center gap-1.5 hover:text-blue-500 transition-colors">
-                      <Github size={16} /> Code
-                    </a>
-                    <a href={project.demo} className="flex items-center gap-1.5 hover:text-blue-500 transition-colors">
-                      <ArrowUpRight size={16} /> Demo
-                    </a>
+                  <div className="flex gap-3">
+                    <GithubLink href={project.github} darkMode={darkMode} full />
+                    <DemoLink href={project.demo} darkMode={darkMode} full />
                   </div>
                 </div>
               </div>

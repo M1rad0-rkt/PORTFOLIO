@@ -6,7 +6,7 @@ import {
   Sparkles, 
   Code2, 
   Users, 
-  Calendar 
+  Calendar,
 } from 'lucide-react';
 
 const experiences = [
@@ -68,6 +68,23 @@ const education = [
   },
 ];
 
+function StatCard({ value, label, darkMode }) {
+  return (
+    <div
+      className={`flex-1 min-w-[140px] rounded-2xl border p-5 text-center ${
+        darkMode ? 'bg-gray-900/60 border-gray-800' : 'bg-white border-gray-100 shadow-sm'
+      }`}
+    >
+      <p className="text-3xl font-bold mb-1 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+        {value}
+      </p>
+      <p className={`text-xs font-medium uppercase tracking-wide ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+        {label}
+      </p>
+    </div>
+  );
+}
+
 export default function CV({ darkMode }) {
   return (
     <section
@@ -85,9 +102,10 @@ export default function CV({ darkMode }) {
         }}
       ></div>
       <div className="pointer-events-none absolute -top-32 -right-32 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px]"></div>
+      <div className="pointer-events-none absolute bottom-0 -left-32 w-96 h-96 bg-purple-600/10 rounded-full blur-[100px]"></div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <span
             className={`inline-flex items-center gap-2 text-sm font-semibold mb-5 px-4 py-1.5 rounded-full ${
               darkMode ? 'bg-blue-500/10 text-blue-400' : 'bg-blue-600/10 text-blue-600'
@@ -110,118 +128,108 @@ export default function CV({ darkMode }) {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-16">
-          {/* Expériences */}
-          <div className="lg:col-span-7">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="p-3 bg-blue-600 rounded-2xl">
-                <Briefcase className="text-white" size={28} />
-              </div>
-              <h3 className={`text-3xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                Expériences Professionnelles
-              </h3>
+        {/* Barre de stats */}
+        <div className="flex flex-wrap justify-center gap-4 mb-20 max-w-2xl mx-auto">
+          <StatCard value={experiences.length} label="Expériences" darkMode={darkMode} />
+          <StatCard value={education.length} label="Formations" darkMode={darkMode} />
+          <StatCard value="2021" label="Premiers pas" darkMode={darkMode} />
+        </div>
+
+        {/* Expériences — pleine largeur, frise chronologique */}
+        <div className="mb-24">
+          <div className="flex items-center gap-3 mb-10">
+            <div className="p-3 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl">
+              <Briefcase className="text-white" size={26} />
             </div>
-
-            <div className="space-y-8">
-              {experiences.map((exp, index) => (
-                <div
-                  key={index}
-                  className={`group relative pl-8 border-l-4 border-blue-600/30 hover:border-blue-600 transition-all ${
-                    darkMode ? 'bg-gray-900/60' : 'bg-white'
-                  } p-8 rounded-3xl shadow-xl`}
-                >
-                  <div className="absolute -left-3 top-8 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
-                    <exp.icon className="text-white" size={14} />
-                  </div>
-
-                  <div className="flex flex-wrap justify-between gap-3 mb-3">
-                    <h4 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                      {exp.title}
-                    </h4>
-                    <span className={`text-sm font-semibold px-3 py-1 rounded-full self-start ${
-                      darkMode ? 'bg-gray-800 text-blue-400' : 'bg-blue-100 text-blue-700'
-                    }`}>
-                      {exp.period}
-                    </span>
-                  </div>
-
-                  <p className={`font-semibold mb-3 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
-                    {exp.company}
-                  </p>
-
-                  <p className={`leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                    {exp.description}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <h3 className={`text-3xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              Expériences
+            </h3>
           </div>
 
-          {/* Formation + Compétences */}
-          <div className="lg:col-span-5 space-y-12">
-            <div>
-              <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 bg-blue-600 rounded-2xl">
-                  <GraduationCap className="text-white" size={28} />
+          <div className="grid md:grid-cols-2 gap-6">
+            {experiences.map((exp, index) => (
+              <div
+                key={index}
+                className={`group relative p-7 rounded-3xl border transition-all hover:-translate-y-1 ${
+                  darkMode
+                    ? 'bg-gray-900/60 border-gray-800 hover:border-blue-500/50'
+                    : 'bg-white border-gray-100 hover:shadow-xl'
+                } ${index === 0 ? 'md:col-span-2' : ''}`}
+              >
+                <div className="flex items-start gap-4">
+                  <div className="shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-600">
+                    <exp.icon className="text-white" size={20} />
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap justify-between gap-3 mb-2">
+                      <h4 className={`text-lg font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                        {exp.title}
+                      </h4>
+                      <span className={`text-xs font-semibold px-3 py-1 rounded-full self-start ${
+                        darkMode ? 'bg-gray-800 text-blue-400' : 'bg-blue-100 text-blue-700'
+                      }`}>
+                        {exp.period}
+                      </span>
+                    </div>
+
+                    <p className={`text-sm font-semibold mb-2 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+                      {exp.company}
+                    </p>
+
+                    <p className={`text-sm leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                      {exp.description}
+                    </p>
+                  </div>
                 </div>
-                <h3 className={`text-3xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                  Formation
-                </h3>
               </div>
+            ))}
+          </div>
+        </div>
 
-              <div className="space-y-8">
-                {education.map((edu, index) => (
-                  <div
-                    key={index}
-                    className={`p-7 rounded-3xl shadow-xl ${
-                      darkMode ? 'bg-gray-900/60 border border-gray-800' : 'bg-white border border-gray-100'
-                    }`}
-                  >
-                    <h4 className={`text-xl font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                      {edu.degree}
-                    </h4>
-                    <p className={`font-medium mb-1 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
-                      {edu.school}
-                    </p>
-                    <p className={`text-sm mb-4 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-                      {edu.period}
-                    </p>
-                    {edu.description && (
-                      <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                        {edu.description}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
+        {/* Formation — pleine largeur */}
+        <div>
+          <div className="flex items-center gap-3 mb-10">
+            <div className="p-3 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl">
+              <GraduationCap className="text-white" size={26} />
             </div>
+            <h3 className={`text-3xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              Formation
+            </h3>
+          </div>
 
-            {/* Compétences Clés */}
-            <div>
-              <h3 className={`text-sm font-semibold uppercase tracking-wider mb-6 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                Compétences Clés
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {['Python', 'Django', 'React', 'Tailwind', 'Pandas', 'Scikit-learn', 'MySQL', 'PostgreSQL', 'Power BI', 'Git', 'ETL'].map((skill, i) => (
-                  <div
-                    key={i}
-                    className={`px-4 py-2 text-sm rounded-2xl border transition-all ${
-                      darkMode
-                        ? 'bg-gray-900 border-gray-700 hover:border-blue-500 text-gray-300'
-                        : 'bg-white border-gray-200 hover:border-blue-400'
-                    }`}
-                  >
-                    {skill}
-                  </div>
-                ))}
+          <div className="grid md:grid-cols-3 gap-6">
+            {education.map((edu, index) => (
+              <div
+                key={index}
+                className={`p-7 rounded-3xl border transition-all hover:-translate-y-1 ${
+                  darkMode
+                    ? 'bg-gray-900/60 border-gray-800 hover:border-purple-500/50'
+                    : 'bg-white border-gray-100 hover:shadow-xl'
+                }`}
+              >
+                <h4 className={`text-lg font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                  {edu.degree}
+                </h4>
+                <p className={`text-sm font-medium mb-1 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+                  {edu.school}
+                </p>
+                <p className={`text-xs mb-3 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                  {edu.period}
+                </p>
+                {edu.description && (
+                  <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    {edu.description}
+                  </p>
+                )}
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Bouton Téléchargement CV */}
-      <a
+        <a
         href="/Curriculum_Vitae_Mirado.jpg"
         download="Curriculum_Vitae_Mirado.jpg"
         className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-6 py-3.5 
